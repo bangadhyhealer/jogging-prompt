@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Prompt Generator AI by Bang Adhy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+    h2 { text-align: center; color: #333; }
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+    }
+    select, input[type="text"] {
+      width: 100%; padding: 8px; margin-bottom: 10px;
+      border-radius: 4px; border: 1px solid #ccc;
+    }
+    button {
+      margin: 5px 5px 10px 0;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    #generateBtn { background-color: #007bff; }
+    #copyBtn { background-color: #28a745; }
+    #resetBtn { background-color: #dc3545; }
+    #output {
+      margin-top: 15px;
+      padding: 15px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      white-space: pre-wrap;
+    }
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+      justify-content: center;
+    }
+    .social-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .social-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease-in-out;
+    }
+    .whatsapp-btn {
+      color: #25D366; border: 2px solid #25D366;
+    }
+    .whatsapp-btn:hover {
+      background-color: #25D366;
+      color: white;
+    }
+    .tiktok-btn {
+      color: #000; border: 2px solid #000;
+    }
+    .tiktok-btn:hover {
+      background-color: #000;
+      color: white;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      color: #777;
+      font-size: 13px;
+      padding-bottom: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>📳 Prompt Generator AI</h2>
+
+  <label for="age">Umur:</label>
+  <select id="age" onchange="generatePrompt()">
+    <option value="20">20 tahun</option>
+    <option value="25" selected>25 tahun</option>
+    <option value="30">30 tahun</option>
+    <option value="35">35 tahun</option>
+  </select>
+
+  <label for="origin">Asal Negara:</label>
+  <select id="origin" onchange="generatePrompt()">
+    <option value="Indonesian" selected>Indonesia</option>
+    <option value="Malaysian">Malaysia</option>
+    <option value="Bruneian">Brunei</option>
+    <option value="Singaporean">Singapura</option>
+  </select>
+
+  <label for="activity">Aktivitas:</label>
+  <input type="text" id="activity" placeholder="Contoh: jogging" oninput="generatePrompt()">
+
+  <label for="top">Atasan:</label>
+  <input type="text" id="top" placeholder="Contoh: long-sleeve sports top" oninput="generatePrompt()">
+
+  <label for="bottom">Celana:</label>
+  <input type="text" id="bottom" placeholder="Contoh: leggings" oninput="generatePrompt()">
+
+  <label for="shoes">Sepatu:</label>
+  <input type="text" id="shoes" placeholder="Contoh: running shoes" oninput="generatePrompt()">
+
+  <label for="headgear">Aksesori Kepala:</label>
+  <input type="text" id="headgear" placeholder="Contoh: hijab, cap, none" oninput="generatePrompt()">
+
+  <label for="weather">Cuaca:</label>
+  <select id="weather" onchange="generatePrompt()">
+    <option value="sunny">Cerah</option>
+    <option value="cloudy">Berawan</option>
+    <option value="foggy">Berkabut</option>
+    <option value="rainy">Hujan ringan</option>
+  </select>
+
+  <label for="language">Bahasa Output:</label>
+  <select id="language" onchange="generatePrompt()">
+    <option value="id">Bahasa Indonesia</option>
+    <option value="en" selected>English</option>
+  </select>
+
+  <div class="button-row">
+    <button id="generateBtn" onclick="generatePrompt()">🎯 Buat Prompt</button>
+    <button id="copyBtn" onclick="copyPrompt()">📋 Salin Prompt</button>
+    <button id="resetBtn" onclick="resetForm()">🔁 Reset Form</button>
+  </div>
+
+  <div id="output"></div>
+
+  <div class="social-buttons">
+    <a href="https://wa.me/6281936034285" class="social-btn whatsapp-btn" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/24/733/733585.png" width="20" alt="WhatsApp"> WhatsApp
+    </a>
+    <a href="https://www.tiktok.com/@bang.adhyhealer" class="social-btn tiktok-btn" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/24/3046/3046122.png" width="20" alt="TikTok"> TikTok
+    </a>
+  </div>
+
+  <div class="footer">
+    © 2025 — Dibuat oleh <strong>Bang Adhy</strong> untuk kreator AI video.
+  </div>
+
+  <script>
+    function generatePrompt() {
+      const age = document.getElementById("age").value;
+      const origin = document.getElementById("origin").value;
+      const activity = document.getElementById("activity").value || "jogging";
+      const top = document.getElementById("top").value || "a fitted long-sleeve top";
+      const bottom = document.getElementById("bottom").value || "leggings";
+      const shoes = document.getElementById("shoes").value || "running shoes";
+      const headgear = document.getElementById("headgear").value || "sport hijab";
+      const weather = document.getElementById("weather").value;
+      const lang = document.getElementById("language").value;
+
+      const weatherText = {
+        sunny: { id: "cuaca cerah", en: "sunny weather" },
+        cloudy: { id: "cuaca berawan", en: "cloudy weather" },
+        foggy: { id: "cuaca berkabut", en: "foggy conditions" },
+        rainy: { id: "cuaca hujan ringan", en: "light rain" }
+      };
+
+      let prompt = "";
+
+      if (lang === "id") {
+        prompt = `Seorang wanita ${origin} berusia ${age} tahun sedang ${activity} di taman kota pada pagi hari dengan ${weatherText[weather].id}. Ia mengenakan atasan ${top}, celana ${bottom}, dan sepatu ${shoes}. Ia memakai ${headgear}. Ekspresinya fokus dan energik. Latar belakang menunjukkan pepohonan, jalan setapak, dan sinar matahari pagi. Suasana sinematik, aktif, dan sehat. Resolusi 4K.`;
+      } else {
+        prompt = `A ${age}-year-old ${origin} woman is doing ${activity} in a city park during early morning under ${weatherText[weather].en}. She wears ${top}, ${bottom}, and ${shoes}. She also wears a ${headgear}. Her expression is focused and energetic. The background shows trees, walking paths, and soft morning sunlight. Cinematic, healthy, and active mood. 4K resolution.`;
+      }
+
+      document.getElementById("output").innerText = prompt;
+    }
+
+    function copyPrompt() {
+      const text = document.getElementById("output").innerText;
+      if (!text) return;
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          alert("📋 Prompt berhasil disalin!\n\n🙏 Jangan lupa komen dan follow ya,\n💸 DONASI seikhlasnya:\nBNI: 1923545440\nDANA: 087703111465\n(Jika link tidak bisa, hubungi saya)\n📱 WhatsApp: 081936034285\n🎵 TikTok: @bang.adhyhealer");
+        })
+        .catch(() => alert("❌ Gagal menyalin prompt."));
+    }
+
+    function resetForm() {
+      document.querySelectorAll("input[type='text']").forEach(input => input.value = "");
+      document.getElementById("age").value = "25";
+      document.getElementById("origin").value = "Indonesian";
+      document.getElementById("weather").value = "sunny";
+      document.getElementById("language").value = "en";
+      document.getElementById("output").innerText = "";
+    }
+  </script>
+
+</body>
+</html>
